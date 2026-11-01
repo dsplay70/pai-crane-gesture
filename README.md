@@ -1,10 +1,10 @@
 # crane_gesture — 言葉から身ぶりを振り付けるロボットアーム
 
-話しかけた言葉から Gemini が気持ちを読み取り、卓上アーム CRANE+ V2 の身ぶり（関節角度のキーフレーム列）をその場で生成して応えます。ROS 2 Humble ＋ Gazebo 上で動きます。東京大学 松尾研究室「Physical AI 2026 応用編1」の最終課題です。
+入力したテキストから Gemini が気持ちを読み取り、卓上アーム CRANE+ V2 の身ぶり（関節角度のキーフレーム列）をその場で生成して応えます。ROS 2 Humble ＋ Gazebo 上で動きます。東京大学 松尾研究室「Physical AI 2026 応用編1」の最終課題です。
 
-- 例：「テストで100点だった！」→ アームが弾むように喜び、「100点すごい！おめでとう！」と返す
+- 例：「テストで100点だった！」と入力 → アームが弾むように喜び、「100点すごい！おめでとう！」と返す
 - 同じ「やばい」でも、文脈が喜びなら弾み、焦りなら縮こまる（用意したモーションから選ぶのではなく、毎回振り付ける）
-- 発話から動き出すまで約2秒（gemini-flash-lite-latest、推論の深さ low）
+- 入力から動き出すまで約2秒（gemini-flash-lite-latest、推論の深さ low）
 
 ## システム構成
 
@@ -12,10 +12,10 @@
 
 | ノード | 役割 |
 | --- | --- |
-| `gesture_planner` | `/user_utterance` を受けて Gemini を呼び、JSON スキーマで縛ったプラン（感情・意図・返事・キーフレーム列）を `/gesture_plan` に出す。LLM 呼び出しは別スレッド |
+| `gesture_planner` | `/user_utterance`（入力テキスト）を受けて Gemini を呼び、JSON スキーマで縛ったプラン（感情・意図・返事・キーフレーム列）を `/gesture_plan` に出す。LLM 呼び出しは別スレッド |
 | `gesture_executor` | プランを安全チェック（`gesture.validate`）に通し、現在の `/joint_states` を起点にアームとグリッパの軌道を FollowJointTrajectory で送る。補正内容は `/gesture_status` に流す |
-| `chat` | 端末から発話を送る（`--file` で台本を1行ずつ送る） |
-| `caption` | 発話・返事・感情を表示する字幕パネル（動画用） |
+| `chat` | 端末からテキストを送る（`--file` で台本を1行ずつ送る） |
+| `caption` | 入力文・返事・感情を表示する字幕パネル（動画用） |
 | `record_demo` | 台本を送りながら x11grab で録画し、各デモの時刻・感情・応答時間・補正を JSON に記録 |
 
 AI を使うのは planner だけで、アームに指令を出せるのは executor だけです。
@@ -62,7 +62,7 @@ ros2 launch crane_plus_gazebo crane_plus_with_table.launch.py
 ros2 launch crane_gesture gesture.launch.py          # ノードのみ
 ros2 launch crane_gesture demo.launch.py             # 動画用（RViz・字幕パネル・ウィンドウ配置つき）
 
-# 3. 話しかける（別ターミナル）
+# 3. テキストを入力する（別ターミナル）
 ros2 run crane_gesture chat
 ```
 
