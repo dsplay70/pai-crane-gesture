@@ -55,7 +55,7 @@ def card_title(bg_frame, path):
     img = Image.open(bg_frame).convert('RGB').resize((W, H))
     img = ImageEnhance.Brightness(img).enhance(0.35)
     d = ImageDraw.Draw(img)
-    text_center(d, 380, 'ことばに、からだで応える。', font(104, 7))
+    text_center(d, 380, 'ことばに、うごきで応える。', font(104, 7))
     text_center(d, 540, 'Gemini × ROS 2 × CRANE+ V2', font(48, 4), SUB)
     img.save(path)
 
