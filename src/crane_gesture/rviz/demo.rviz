@@ -1,0 +1,70 @@
+Panels: []
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Name: Grid
+      Enabled: true
+      Cell Size: 0.1
+      Plane Cell Count: 20
+      Color: 90; 96; 110
+      Alpha: 0.35
+      Reference Frame: <Fixed Frame>
+      Offset: {X: 0, Y: 0, Z: -0.022}
+      Value: true
+    - Class: rviz_default_plugins/RobotModel
+      Name: RobotModel
+      Enabled: true
+      Description Source: Topic
+      Description Topic:
+        Value: /robot_description
+        Durability Policy: Transient Local
+        Reliability Policy: Reliable
+        Depth: 5
+      Visual Enabled: true
+      Collision Enabled: false
+      Alpha: 1
+      Value: true
+    - Class: rviz_default_plugins/Marker
+      Name: Table
+      Enabled: true
+      Topic:
+        Value: /demo_markers
+        Durability Policy: Transient Local
+        Reliability Policy: Reliable
+        Depth: 5
+      Value: true
+  Enabled: true
+  Global Options:
+    Background Color: 34; 37; 44
+    Fixed Frame: world
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz_default_plugins/MoveCamera
+  Value: true
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Name: Current View
+      Distance: 0.85
+      Focal Point: {X: 0.03, Y: 0, Z: 0.12}
+      Focal Shape Fixed Size: false
+      Focal Shape Size: 0.01
+      Near Clip Distance: 0.01
+      Pitch: 0.22
+      Yaw: 0.55
+      Target Frame: <Fixed Frame>
+      Value: Orbit (rviz)
+    Saved: ~
+Window Geometry:
+  Hide Left Dock: true
+  Hide Right Dock: true
+  Displays:
+    collapsed: true
+  Views:
+    collapsed: true
+  Height: 720
+  Width: 1280
+  X: 0
+  Y: 0
